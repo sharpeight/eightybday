@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guess the Letters Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f0f8ff;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #history {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>It's a small world after all</h1>
+  <p>Type 10 different letters (e.g. "abcdeijklm") and click Submit.</p>
+
+  <input type="text" id="guessInput" maxlength="10" placeholder="Enter 10 letters" />
+  <button onclick="submitGuess()">Submit</button>
+
+  <div id="feedback"></div>
+  <div id="history"></div>
+
+  <script>
+    let secretLetters = generateSecretLetters();
+    let attempts = 0;
+
+    function generateSecretLetters() {
+      const selected = [];
+      selected.push('q')
+      selected.push('m')
+      selected.push('t')
+      selected.push('b')
+      selected.push('e')
+      selected.push('y')
+      selected.push('c')
+      selected.push('a')
+      selected.push('h')
+      selected.push('z')
+      return selected;
+    }
+
+    function submitGuess() {
+      const input = document.getElementById('guessInput');
+      const guess = input.value.toLowerCase().replace(/[^a-z]/g, '');
+      input.value = '';
+      attempts++;
+
+      if (guess.length !== 10 || new Set(guess).size !== 10) {
+        document.getElementById('feedback').innerText = "Please enter 10 **different** letters!";
+        return;
+      }
+
+      let correct = [];
+      for (let i = 0; i < 10; i++) {
+        if (secretLetters.includes(guess[i])) {
+          correct.push(guess[i]);
+        }
+      }
+
+      const feedbackText = correct.length === 10
+        ? `🎉 Congratulations! You guessed all the letters in ${attempts} attempts!`
+        : `✅ Correct letters: ${correct.join(', ')} (${correct.length}/10)`;
+
+      document.getElementById('feedback').innerText = feedbackText;
+      document.getElementById('history').innerHTML += `<div>Attempt ${attempts}: ${guess} ➜ ${correct.length}/10 correct</div>`;
+
+      if (correct.length === 10) {
+        document.querySelector('button').disabled = true;
+        document.getElementById('guessInput').disabled = true;
+      }
+    }
+  </script>
+
+</body>
+</html>
