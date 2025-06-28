@@ -5,34 +5,64 @@
   <title>Guess the Letters Game</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: #f0f8ff;
+      font-family: Arial, sans-serif;
     }
+
+    .container {
+      text-align: center;
+      max-width: 500px;
+    }
+
     input, button {
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
+      width: 100%;
+      max-width: 300px;
     }
+
     #feedback {
       margin-top: 20px;
       font-weight: bold;
     }
+
     #history {
       margin-top: 20px;
+      text-align: left;
+    }
+
+    /* Top-left image style */
+    .logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 200px;
+      height: auto;
     }
   </style>
 </head>
 <body>
 
-  <h1>It's a small world after all</h1>
-  <p>Type 10 different letters (e.g. "abcdeijklm") and click Submit.</p>
+  <!-- Top-left corner image -->
+  <img src="https://raw.githubusercontent.com/sharpeight/eightybday/main/bday_logo.png" alt="" class="logo" />
 
-  <input type="text" id="guessInput" maxlength="10" placeholder="Enter 10 letters" />
-  <button onclick="submitGuess()">Submit</button>
 
-  <div id="feedback"></div>
-  <div id="history"></div>
+  <div class="container">
+    <h1>It's a small world after all</h1>
+    <p>Type 10 different letters (e.g. "abcdeijklm") and click Submit.</p>
+
+    <input type="text" id="guessInput" maxlength="10" placeholder="Enter 10 letters" />
+    <button onclick="submitGuess()">Submit</button>
+
+    <div id="feedback"></div>
+    <div id="history"></div>
+  </div>
 
   <script>
     let secretLetters = generateSecretLetters();
